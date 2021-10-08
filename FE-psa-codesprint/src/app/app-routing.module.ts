@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { OverviewPageComponent } from './components/overview-page/overview-page.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: OverviewPageComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
