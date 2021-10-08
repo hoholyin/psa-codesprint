@@ -1,0 +1,17 @@
+Options:
+0 - Never
+1 - A few times
+2 - Sometimes
+3 - Often
+4 - Constantly
+
+1. I was very anxious, worried or scared about a lot of things in my life.
+2. I felt that my worry was out of my control.
+3. I felt restless, agitated, frantic, or tense.
+4. I had trouble sleeping - I could not fall or stay asleep, and/or didn't feel well-rested when I woke up.
+5. My workload is not managable.
+6. I cannot work at a comfortable pace.
+7. I don't receive helpful feedback on the work I do.
+8. I don't feel comfortable talking about the problems I am facing.
+9. I don't feel clear on the goals of the department and how my work fits into the bigger picture.
+10. I don't feel confident that surveys and feedback will be acted on.
