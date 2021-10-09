@@ -46,6 +46,24 @@ def submitscore():
         return jsonify({'message': 'error encountered'}), 500
     return jsonify({'message': 'data submitted successfully'}), 200
 
+@app.route("/submitrating", methods=['POST'])
+def submitrating():
+    formData = request.get_json()
+    if not db.employeeScore.find_one({'name': formData['name']}):
+        return jsonify({'message': 'user not found'}), 501
+    db.employeeScore.update({'name': formData['name']}, {
+                            '$set': {
+                                'rating': formData['rating']
+                                }
+                            }, upsert=True)
+    return jsonify({'message': 'data submitted successfully'}), 200
+
+@app.route("/getrating", methods=['GET'])
+def getrating():
+    result = [json.loads(json.dumps(doc, default=json_util.default)) for doc in db.employeeScore.find({}, {"_id": 0, "name": 1, "rating": 1})]
+    print(result)
+    return jsonify({'result': result}), 200
+
 @app.route("/getallscore", methods=['GET'])
 def getallscore():
     allEmployeeData = [json.loads(json.dumps(doc, default=json_util.default)) for doc in db.employeeData.find({})] #return everything 
