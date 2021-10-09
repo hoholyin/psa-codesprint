@@ -1,5 +1,6 @@
 from db import *
 from flask import Flask, jsonify, request, make_response, url_for
+from flask_cors import CORS
 import os
 import sys
 import pymongo
@@ -7,6 +8,7 @@ import json
 from bson import json_util
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def hello():
