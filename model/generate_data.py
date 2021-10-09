@@ -19,8 +19,8 @@ for name in names:
     
     result = {
         'name': name,
-        'number': number,
+        'contact': number,
         'email': email,
-        'dept': dept 
+        'department': dept 
     } 
     result_file.write(json.dumps(result) + "\n")
