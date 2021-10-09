@@ -31,15 +31,17 @@ export class OverviewPageComponent implements OnInit {
       this.employeeScores = res.allEmployeeScore;
       this.employeeDatas = res.allEmployeeData;
 
+      console.log(res);
+      
       this.dataSource = new MatTableDataSource<EmployeeRating>();
       this.dataSource.data = this.employeeScores as EmployeeRating[];
       this.dataSource.paginator = this.paginator;
     });
   }
 
-  openDetailsDialog(name: string) {
+  openDetailsDialog(name: string, rating: number) {
     const selectedEmployee = this.employeeDatas.find( employee => employee.name === name);
-    this.dialogControl.open(EmployeeInfoDialogComponent, {data: selectedEmployee});
+    this.dialogControl.open(EmployeeInfoDialogComponent, {width: '40%', data: {selectedEmployee, rating}});
 
   }
 

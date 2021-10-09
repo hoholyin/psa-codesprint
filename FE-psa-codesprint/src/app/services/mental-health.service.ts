@@ -5,10 +5,16 @@ import { EmployeeData } from '../models/employee-data';
 import { EmployeeRating } from '../models/employee-rating';
 
 const baseUrl = 'http://localhost:8080';
+const replUrl = 'http://codesprint.brandoncjh.repl.co'; 
 
 export interface GetAllUsersResponse {
   allEmployeeData: EmployeeData[],
   allEmployeeScore: EmployeeRating[]
+}
+
+export interface GetScoreAndInfoByName {
+  employeeData: EmployeeData,
+  employeeScore: EmployeeRating
 }
 
 @Injectable({
@@ -20,7 +26,11 @@ export class MentalHealthService {
 
   getAllUsers(): Observable<GetAllUsersResponse> {
     console.log('calling getAllUsers()');
-    return this.http.get<GetAllUsersResponse>(baseUrl + '/getallscore');
+    return this.http.get<GetAllUsersResponse>(replUrl + '/getallscore');
+  }
+
+  getScoreAndInfoByName(name: string): Observable<GetScoreAndInfoByName> {
+    return this.http.get<GetScoreAndInfoByName>(replUrl + '/getscorebyname?name=' + name);
   }
 
 }

@@ -1,17 +1,58 @@
+.info_dialog {
+    height: 100%;
+}
+
 .info_dialog-header-label {
     color: black;
     font-weight: 500;
 }
 
-.info_dialog-information-label {
-    background-color: #3D6B75;
+.info_dialog-information {
+    height: 60%;
 }
 
 .info_dialog-information-label {
+    background-color: #3D6B75;
     padding: 1rem;
+    display: flex;
+    justify-content: space-between;
 }
-.info_dialog-information-label-name {
+
+.info_dialog-information-label-mood {
+    display:flex;
+}
+
+.mood-icon {
+    margin-right: 1rem;
+}
+
+.info_dialog-information-label-name, .info_dialog-information-label-rating {
     color: #FFFFFF;
     font-size: 28px;
     font-weight: 500;
+}
+
+.info_dialog-information-particulars {
+    padding: 1rem;
+    padding-left: 25%;
+    background-color: #C4C4C4;
+}
+
+.email-icon, .mobile-icon, .dept-icon {
+    margin-right: 2rem;
+}
+
+.info_dialog_information-email, .info_dialog_information-mobile, .info_dialog_information-dept {
+    width: 75%;
+    display: flex;
+}
+
+.email-text {
+    width: 100%;
+    overflow-wrap: break-word;
+}
+
+.info_dialog_information-mobile {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }

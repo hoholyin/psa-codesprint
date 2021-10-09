@@ -5,6 +5,25 @@
     <div class="info_dialog-information">
         <div class="info_dialog-information-label">
             <span class="info_dialog-information-label-name">{{selectedEmployee.name}}</span>
+            <div class="info_dialog-information-label-mood">
+                <mat-icon class="mood-icon">{{moodMatIcon}}</mat-icon>
+                <span class="info_dialog-information-label-rating">{{rating || 0 | percent}}</span>
+            </div>
+            
+        </div>
+        <div class="info_dialog-information-particulars">
+            <div class="info_dialog_information-email">
+                <mat-icon class="email-icon">mail_outline</mat-icon>
+                <span class="email-text">{{selectedEmployee.email}}</span>
+            </div>
+            <div class="info_dialog_information-mobile">
+                <mat-icon class="mobile-icon">phone</mat-icon>
+                <span>{{selectedEmployee.contact}}</span>
+            </div>
+            <div class="info_dialog_information-dept">
+                <mat-icon class="dept-icon">corporate_fare</mat-icon>
+                <span>{{selectedEmployee.department}}</span>
+            </div>
         </div>
     </div>
 </div>
