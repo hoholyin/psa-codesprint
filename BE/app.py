@@ -61,7 +61,6 @@ def submitrating():
 @app.route("/getrating", methods=['GET'])
 def getrating():
     result = [json.loads(json.dumps(doc, default=json_util.default)) for doc in db.employeeScore.find({}, {"_id": 0, "name": 1, "rating": 1})]
-    print(result)
     return jsonify({'result': result}), 200
 
 @app.route("/getallscore", methods=['GET'])
