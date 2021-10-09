@@ -4,7 +4,7 @@ import json
 names = open("names.txt", "r")
 result_file = open("employee_data.txt", "w")
 for name in names:
-    name = name[:-2]
+    name = name[:-3]
 
     #Add number
     number = "9"
