@@ -5,9 +5,10 @@
 
     <div class="overview_wellbeing">
         <div class="overview_wellbeing_title">
-            <h1 class="overview_wellbeing_title_label">EMPLOYEE’S WELLING</h1>
+            <h1 class="overview_wellbeing_title_label" (click)="this.isLoading = !this.isLoading">EMPLOYEE’S WELLING</h1>
         </div>
-        <div class="overview_wellbeing_table">
+
+        <div class="overview_wellbeing_table" [hidden]="this.isLoading">
             <table mat-table [dataSource]="dataSource">
                 <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table_header_row"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table_header_row_label"></tr>
@@ -30,5 +31,7 @@
                 aria-label="Select page of periodic elements">
             </mat-paginator>
         </div>
+
+        <app-spinner *ngIf="this.isLoading"></app-spinner>
     </div>
 </div>

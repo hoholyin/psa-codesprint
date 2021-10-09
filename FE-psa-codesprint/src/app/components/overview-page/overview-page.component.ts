@@ -20,6 +20,8 @@ export class OverviewPageComponent implements OnInit {
   employeeScores: EmployeeRating[] = [];
   employeeDatas: EmployeeData[] = [];
 
+  isLoading = true;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private mentalHealthSerivce: MentalHealthService,
@@ -28,11 +30,13 @@ export class OverviewPageComponent implements OnInit {
   ngOnInit(): void {
     this.mentalHealthSerivce.getAllUsers().subscribe(res => {
       
+      this.isLoading = false;
+
       this.employeeScores = res.allEmployeeScore;
       this.employeeDatas = res.allEmployeeData;
 
       console.log(res);
-      
+
       this.dataSource = new MatTableDataSource<EmployeeRating>();
       this.dataSource.data = this.employeeScores as EmployeeRating[];
       this.dataSource.paginator = this.paginator;
@@ -42,7 +46,5 @@ export class OverviewPageComponent implements OnInit {
   openDetailsDialog(name: string, rating: number) {
     const selectedEmployee = this.employeeDatas.find( employee => employee.name === name);
     this.dialogControl.open(EmployeeInfoDialogComponent, {width: '40%', data: {selectedEmployee, rating}});
-
   }
-
 }
