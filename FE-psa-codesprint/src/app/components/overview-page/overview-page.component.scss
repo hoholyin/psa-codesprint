@@ -18,3 +18,21 @@
 table {
     width: 100%;
 }
+
+.table_header_row {
+    background-color: #3D6B75;
+}
+
+.mat-header-cell {
+    color: #EEEEEE;
+    font-weight: 400;
+    font-size: 32px;
+} 
+
+.mat-column-score {
+    text-align: right;
+}
+
+.table_score {
+    font-weight:500;
+}

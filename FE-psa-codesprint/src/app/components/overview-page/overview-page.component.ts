@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { EmployeeRating } from 'src/app/models/employee-rating';
+import { EmployeeData } from 'src/app/models/employee-data';
 import { MentalHealthService } from 'src/app/services/mental-health.service';
 
 @Component({
@@ -9,17 +12,25 @@ import { MentalHealthService } from 'src/app/services/mental-health.service';
 })
 export class OverviewPageComponent implements OnInit {
 
-  dataSource: User[] = [
-    {name: 'Glenn Tan', score: 50},
-    {name: 'Hol Yin', score: 80},
-    {name: 'Brandon', score: 90}
-  ];
-
   displayedColumns = ['name', 'score'];
+  dataSource: MatTableDataSource<EmployeeRating>;
+
+  employeeScores: EmployeeRating[] = [];
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private mentalHealthSerivce: MentalHealthService) { }
 
   ngOnInit(): void {
+    this.mentalHealthSerivce.getAllUsers().subscribe(res => {
+      
+      this.employeeScores = res.allEmployeeScore;
+
+      console.log(this.employeeScores)
+      this.dataSource = new MatTableDataSource<EmployeeRating>();
+      this.dataSource.data = this.employeeScores as EmployeeRating[];
+      this.dataSource.paginator = this.paginator;
+    });
   }
 
 }
