@@ -1,14 +1,14 @@
 from random import randrange
-import requests
-import json
 import text2emotion as te
 
-names = open("names.txt", "r")
-emotions = open("emotions.txt", "r")
-emotions = [e[:-1] for e in emotions]
-i = 0
-for name in names:
-    scores = []
+emotions_file = open("emotions.txt", "r")
+emotions = [e[:-1] for e in emotions_file]
+x_train = open("x_train.txt", "w")
+y_train = open("y_train.txt", "w")
+    
+for i in range(2000):
+    print(i)
+    scores = ""
     rating = 0
     positive = True
     for j in range(10):
@@ -18,16 +18,16 @@ for name in names:
             val = randrange(1, 3)
         elif (i % 7 == 0):
             val = randrange(4, 5)
+            positive = False
         else:
             val = randrange(3, 5)
+            positive = False
         rating += (val + 1) * 0.2
-        scores.append(str(val))
-    if rating >= 6:
-        positive = False
+        scores += str(val) + " "
     for j in range(3):
+        emotion = emotions[randrange(len(emotions))]
         done = False
         while not done:
-            emotion = emotions[randrange(len(emotions))]
             em_object = te.get_emotion(emotion)
             score1 = em_object['Angry']
             score2 = em_object['Fear']
@@ -35,16 +35,12 @@ for name in names:
             avg_score = (score1 + score2 + score4) / 3
             if positive and score1 + score2 + score4 < 0.3:
                 done = True
-            elif not positive and score1 + score2 + score4 > 0.7:
+            elif not positive and score1 + score2 + score4 > 0.5:
                 done = True
-        scores.append(emotion)
+        rating += avg_score
+        scores += emotion + " "
 
-    payload = {
-        'name': name[:-3],
-        'scores': scores
-    }
-    r = requests.post('https://codesprint.brandoncjh.repl.co/submitscore', data=payload)
-    print("submitted entry for {}".format(name))
-    print(r.json())
-    i += 1
-
+    x_train.write(scores[:-1] + "\n")
+    avg_y = rating / 13
+    y_train.write(str(avg_y) + "\n")
+    

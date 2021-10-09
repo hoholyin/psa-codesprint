@@ -1,14 +1,13 @@
 from random import randrange
-import requests
-import json
 import text2emotion as te
 
-names = open("names.txt", "r")
-emotions = open("emotions.txt", "r")
-emotions = [e[:-1] for e in emotions]
-i = 0
-for name in names:
-    scores = []
+emotions_file = open("emotions.txt", "r")
+emotions = [e[:-1] for e in emotions_file]
+x_train = open("x_test.txt", "w")
+y_train = open("y_test.txt", "w")
+    
+for i in range(200):
+    scores = ""
     rating = 0
     positive = True
     for j in range(10):
@@ -21,7 +20,7 @@ for name in names:
         else:
             val = randrange(3, 5)
         rating += (val + 1) * 0.2
-        scores.append(str(val))
+        scores += str(val) + " "
     if rating >= 6:
         positive = False
     for j in range(3):
@@ -37,14 +36,10 @@ for name in names:
                 done = True
             elif not positive and score1 + score2 + score4 > 0.7:
                 done = True
-        scores.append(emotion)
+        rating += avg_score
+        scores += emotion + " "
 
-    payload = {
-        'name': name[:-3],
-        'scores': scores
-    }
-    r = requests.post('https://codesprint.brandoncjh.repl.co/submitscore', data=payload)
-    print("submitted entry for {}".format(name))
-    print(r.json())
-    i += 1
-
+    x_train.write(scores[:-1] + "\n")
+    avg_y = rating / 13
+    y_train.write(str(avg_y) + "\n")
+    
