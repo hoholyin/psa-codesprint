@@ -50,10 +50,6 @@ def submitscore():
 def getallscore():
     allEmployeeData = [json.loads(json.dumps(doc, default=json_util.default)) for doc in db.employeeData.find({})] #return everything 
     allEmployeeScore = [json.loads(json.dumps(doc, default=json_util.default)) for doc in db.employeeScore.find({})] #return everything
-    print("test1")
-    print(allEmployeeData)
-    print("test2")
-    print(allEmployeeScore)
     if (not allEmployeeData or not allEmployeeScore):
         return jsonify({"message": 'data not found'}), 500
     else:
