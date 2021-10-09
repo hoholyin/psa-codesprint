@@ -8,7 +8,7 @@ for name in names:
 
     #Add number
     number = "9"
-    for i in range(8):
+    for i in range(7):
         number += str(randrange(10))
 
     #Add email
