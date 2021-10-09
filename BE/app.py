@@ -3,6 +3,8 @@ from flask import Flask, jsonify, request, make_response, url_for
 import os
 import sys
 import pymongo
+import json
+from bson import json_util
 
 app = Flask(__name__)
 
@@ -10,30 +12,66 @@ app = Flask(__name__)
 def hello():
     return "hello world"
 
-@app.route("/submit", methods=['POST'])
-def submit():
-    formData = request.get_json()
-    #extract various fields from form
-    name = formData["name"]
-    field1 = formData["field1"]
-    #and so on...
-    db.employeeData.insert_one({
-        #"userID": userID,
-        "name": name,
-        "field1": field1
-    })
+@app.route("/submitdata", methods=['POST'])
+def submitdata():
+    try:
+        formData = request.get_json()
+        #extract various fields from form
+        name = formData["name"]
+        contact = formData["contact"]
+        email = formData["email"]
+        department = formData["department"]
+        db.employeeData.insert_one({
+            "name": name,
+            "contact": contact,
+            "email": email,
+            "department": department
+        })
+    except:
+        return jsonify({'message': 'error encountered'}), 500
     return jsonify({'message': 'data submitted successfully'}), 200
 
-@app.route("/getscore", methods=['GET'])
-def getscore():
-    name = request.args.get('name')
-    result = db.employeeScore.find_one({
-        'name': name
-    })
-    if not result:
+@app.route("/submitscore", methods=['POST'])
+def submitscore():
+    try:
+        formData = request.get_json()
+        #extract various fields from form
+        name = formData["name"]
+        scores = formData["scores"]
+        db.employeeScore.insert_one({
+            "name": name,
+            "scores": scores
+        })
+    except:
+        return jsonify({'message': 'error encountered'}), 500
+    return jsonify({'message': 'data submitted successfully'}), 200
+
+@app.route("/getallscore", methods=['GET'])
+def getallscore():
+    allEmployeeData = [json.loads(json.dumps(doc, default=json_util.default)) for doc in db.employeeData.find({})] #return everything 
+    allEmployeeScore = [json.loads(json.dumps(doc, default=json_util.default)) for doc in db.employeeScore.find({})] #return everything
+    print("test1")
+    print(allEmployeeData)
+    print("test2")
+    print(allEmployeeScore)
+    if (not allEmployeeData or not allEmployeeScore):
         return jsonify({"message": 'data not found'}), 500
     else:
-        return jsonify({'result': result["score"]}), 200
+        return jsonify({'allEmployeeData': allEmployeeData, 'allEmployeeScore': allEmployeeScore}), 200    
+
+@app.route("/getscorebyname", methods=['GET'])
+def getscorebyname():
+    name = request.args.get('name')
+    employeeDataResult = db.employeeData.find_one({
+        'name': name
+    })
+    employeeScoreResult = db.employeeScore.find_one({
+        'name': name
+    })
+    if (not employeeDataResult or not employeeScoreResult):
+        return jsonify({"message": 'data not found'}), 500
+    else:
+        return jsonify({'employeeData': employeeDataResult, 'employeeScore': employeeScoreResult}), 200
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
