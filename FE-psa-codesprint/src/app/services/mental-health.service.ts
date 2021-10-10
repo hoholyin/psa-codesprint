@@ -5,7 +5,7 @@ import { EmployeeData } from '../models/employee-data';
 import { EmployeeRating } from '../models/employee-rating';
 
 const baseUrl = 'http://localhost:8080';
-const replUrl = 'http://codesprint.brandoncjh.repl.co'; 
+const replUrl = 'https://codesprint.brandoncjh.repl.co'; 
 
 export interface GetAllUsersResponse {
   result: EmployeeRating[],
