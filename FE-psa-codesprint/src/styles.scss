@@ -22,3 +22,12 @@ html, body {
  .mat-progress-spinner circle, .mat-spinner circle {
     stroke: #3d6b75;
 }
+
+.mat-sort-header-arrow {
+    color: azure;
+}
+
+th.mental_header > .mat-sort-header-container {
+    text-align: right !important;
+    justify-content: flex-end !important;
+}

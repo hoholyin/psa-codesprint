@@ -15,7 +15,6 @@
     font-weight: 500;
 }
 
-
 table {
     width: 100%;
     border-radius: 0.5rem;
@@ -27,6 +26,12 @@ table {
 
 .table_header__header_row {
     background-color: #3D6B75;
+}
+
+th.mental_header > .mat-sort-header-container {
+    display: flex;
+    text-align: right !important;
+    justify-content: flex-end !important;
 }
 
 .mat-header-cell {
