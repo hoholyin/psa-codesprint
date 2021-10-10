@@ -32,7 +32,7 @@ export class OverviewPageComponent implements OnInit {
       
       this.isLoading = false;
 
-      this.employeeScores = res.allEmployeeScore;
+      this.employeeScores = this.sortRatingInAscendingOrder(res.result);
       this.employeeDatas = res.allEmployeeData;
 
       console.log(res);
@@ -43,8 +43,35 @@ export class OverviewPageComponent implements OnInit {
     });
   }
 
+  sortRatingInAscendingOrder(employeeScores: EmployeeRating[]) : EmployeeRating[] {
+    return employeeScores.sort((a,b) => {
+      if (!a.rating) {
+        a.rating = 0;
+      }
+      if (!b.rating) {
+        b.rating = 0;
+      }
+
+      return (a.rating - b.rating);
+    });
+  }
+
   openDetailsDialog(name: string, rating: number) {
     const selectedEmployee = this.employeeDatas.find( employee => employee.name === name);
     this.dialogControl.open(EmployeeInfoDialogComponent, {width: '40%', data: {selectedEmployee, rating}});
+  }
+
+  getRatingColor(rating: number): string {
+    if (rating < 0.3) {
+      return 'tomato';
+    } else if (rating >= 0.3 && rating < 0.6) {
+      return 'yellow';
+    } else {
+      return 'springgreen';
+    }
+  }
+
+  printthis(row:any):void {
+    console.log(row);
   }
 }

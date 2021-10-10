@@ -8,8 +8,8 @@ const baseUrl = 'http://localhost:8080';
 const replUrl = 'http://codesprint.brandoncjh.repl.co'; 
 
 export interface GetAllUsersResponse {
-  allEmployeeData: EmployeeData[],
-  allEmployeeScore: EmployeeRating[]
+  result: EmployeeRating[],
+  allEmployeeData: EmployeeData[]
 }
 
 export interface GetScoreAndInfoByName {
@@ -26,7 +26,7 @@ export class MentalHealthService {
 
   getAllUsers(): Observable<GetAllUsersResponse> {
     console.log('calling getAllUsers()');
-    return this.http.get<GetAllUsersResponse>(replUrl + '/getallscore');
+    return this.http.get<GetAllUsersResponse>(replUrl + '/getrating');
   }
 
   getScoreAndInfoByName(name: string): Observable<GetScoreAndInfoByName> {
