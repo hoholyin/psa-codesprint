@@ -4,7 +4,7 @@
     </div>
     <div class="info_dialog-information">
         <div class="info_dialog-information-label">
-            <span class="info_dialog-information-label-name">{{selectedEmployee.name}}</span>
+            <span class="info_dialog-information-label-name">{{selectedEmployee.name | uppercase}}</span>
             <div class="info_dialog-information-label-mood">
                 <mat-icon class="mood-icon">{{moodMatIcon}}</mat-icon>
                 <span class="info_dialog-information-label-rating">{{rating || 0 | percent}}</span>
