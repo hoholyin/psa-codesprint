@@ -1,0 +1,8 @@
+import requests
+
+names = open("names.txt", "r")
+names = [n[:-3] for n in names]
+for name in names:
+    payload = { 'name': name.replace(" ", "+") }
+    r = requests.get('https://codesprint.brandoncjh.repl.co/getscorebyname?name={}'.format(name))
+    print(r.json())

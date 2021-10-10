@@ -43,8 +43,8 @@ for name in names:
         'name': name[:-3],
         'scores': scores
     }
-    r = requests.post('https://codesprint.brandoncjh.repl.co/submitscore', data=payload)
+    print(payload)
+    r = requests.post('https://codesprint.brandoncjh.repl.co/submitscore', json=payload)
     print("submitted entry for {}".format(name))
-    print(r.json())
     i += 1
 

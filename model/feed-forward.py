@@ -141,6 +141,7 @@ if mode == "--test":
     for label in labels:
         prediction.write(str(label) + "\n")
     correct = 0
+    '''
     answers = open(y_train, "r")
     answers = [a for a in answers]
     if len(answers) != len(labels):
@@ -151,3 +152,4 @@ if mode == "--test":
         correct += mark
     acc = float(correct) / float(len(answers))
     print("Accuracy is ", acc)
+    '''
