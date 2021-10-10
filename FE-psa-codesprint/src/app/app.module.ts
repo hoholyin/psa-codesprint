@@ -8,12 +8,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { OverviewPageComponent } from './components/overview-page/overview-page.component';
 import { EmployeeInfoDialogComponent } from './dialogs/employee-info-dialog/employee-info-dialog.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { EmployeeInfoDialogComponent } from './dialogs/employee-info-dialog/empl
     NavbarComponent,
     OverviewPageComponent,
     EmployeeInfoDialogComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,9 @@ import { EmployeeInfoDialogComponent } from './dialogs/employee-info-dialog/empl
     MatToolbarModule,
     MatTableModule,
     MatPaginatorModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

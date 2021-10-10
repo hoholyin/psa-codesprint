@@ -3,7 +3,6 @@ from flask import Flask, jsonify, request, make_response, url_for
 from flask_cors import CORS
 import os
 import sys
-import pymongo
 import json
 from bson import json_util
 
@@ -35,17 +34,15 @@ def submitdata():
 
 @app.route("/submitscore", methods=['POST'])
 def submitscore():
-    try:
-        formData = request.get_json()
-        #extract various fields from form
-        name = formData["name"]
-        scores = formData["scores"]
-        db.employeeScore.insert_one({
-            "name": name,
-            "scores": scores
-        })
-    except:
-        return jsonify({'message': 'error encountered'}), 500
+    formData = request.get_json()
+    #extract various fields from form
+    name = formData["name"]
+    scores = formData["scores"]
+    db.employeeScore.update_one({'name': formData['name']}, {
+                            '$set': {
+                                'scores': formData['scores']
+                                }
+                            }, upsert=True)
     return jsonify({'message': 'data submitted successfully'}), 200
 
 @app.route("/submitrating", methods=['POST'])
@@ -67,12 +64,8 @@ def getrating():
 
 @app.route("/getallscore", methods=['GET'])
 def getallscore():
-    allEmployeeData = [json.loads(json.dumps(doc, default=json_util.default)) for doc in db.employeeData.find({})] #return everything 
     allEmployeeScore = [json.loads(json.dumps(doc, default=json_util.default)) for doc in db.employeeScore.find({})] #return everything
-    if (not allEmployeeData or not allEmployeeScore):
-        return jsonify({"message": 'data not found'}), 500
-    else:
-        return jsonify({'allEmployeeData': allEmployeeData, 'allEmployeeScore': allEmployeeScore}), 200    
+    return jsonify({'allEmployeeScore': allEmployeeScore}), 200    
 
 @app.route("/getscorebyname", methods=['GET'])
 def getscorebyname():
@@ -89,4 +82,4 @@ def getscorebyname():
         return jsonify({'employeeData': employeeDataResult, 'employeeScore': employeeScoreResult}), 200
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+    app.run(host='0.0.0.0', port=8080)

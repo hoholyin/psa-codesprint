@@ -5,23 +5,28 @@
 
     <div class="overview_wellbeing">
         <div class="overview_wellbeing_title">
-            <h1 class="overview_wellbeing_title_label">EMPLOYEE’S WELLING</h1>
+            <h1 class="overview_wellbeing_title_label" (click)="this.isLoading = !this.isLoading">NGTPSD</h1>
         </div>
-        <div class="overview_wellbeing_table">
+
+        <div class="overview_wellbeing_table" [hidden]="this.isLoading">
             <table mat-table [dataSource]="dataSource">
-                <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table_header_row"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table_header_row_label"></tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table_header__header_row"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDetailsDialog(row.name, row.rating)"class="table_header_row_label"></tr>
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> Employee's Name </th>
-                    <td mat-cell *matCellDef="let element" (click)="openDetailsDialog(element.name)"> {{element.name}} </td>
+                    <th mat-header-cell *matHeaderCellDef> NAME </th>
+                    <td mat-cell *matCellDef="let element" class="table_name" > {{element.name | uppercase}}  </td>
                 </ng-container>
 
                 <!-- Score Column -->
                 <ng-container matColumnDef="score">
-                    <th mat-header-cell *matHeaderCellDef> Mental Rating </th>
-                    <td mat-cell *matCellDef="let element" class="table_score"> {{element.rating?.$numberDecimal || 0 | percent}} </td>
+                    <th mat-header-cell *matHeaderCellDef> MENTAL RATING </th>
+                    <td mat-cell *matCellDef="let element" class="table_score"> 
+                        <div class="table_score_box" [ngStyle]="{'background-color': getRatingColor(element.rating)}">
+                            {{element.rating || 0 | percent}} 
+                        </div>
+                    </td>
                 </ng-container>
 
             </table>
@@ -30,5 +35,7 @@
                 aria-label="Select page of periodic elements">
             </mat-paginator>
         </div>
+
+        <app-spinner class="spinner" *ngIf="this.isLoading"></app-spinner>
     </div>
 </div>

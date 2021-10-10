@@ -7,7 +7,7 @@
 }
 
 .overview_wellbeing {
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .overview_wellbeing_title_label {
@@ -15,24 +15,61 @@
     font-weight: 500;
 }
 
+
 table {
     width: 100%;
+    border-radius: 0.5rem;
 }
 
-.table_header_row {
+.table_header_row_label {
+ background: rgb(102, 100, 100);   
+}
+
+.table_header__header_row {
     background-color: #3D6B75;
 }
 
 .mat-header-cell {
     color: #EEEEEE;
-    font-weight: 400;
-    font-size: 32px;
+    // font-weight: 500;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
 } 
 
 .mat-column-score {
     text-align: right;
 }
 
+.table_name {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+}
+
+.table_name:hover {
+    text-decoration: underline;
+    cursor:pointer;
+}
+
+.table_score:hover {
+    cursor:pointer;
+}
+
 .table_score {
+    font-size: 1.5rem;
     font-weight:500;
+}
+
+.table_score_box {
+    width: 80px;
+    margin-right: 0;
+    margin-left: auto;
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+mat-paginator {
+    background: rgb(102, 100, 100);
+    color: white;
 }

@@ -10,13 +10,24 @@ import { EmployeeData } from 'src/app/models/employee-data';
 export class EmployeeInfoDialogComponent implements OnInit {
 
   selectedEmployee: EmployeeData;
+  rating: number;
+  moodMatIcon: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: EmployeeData) { 
-    this.selectedEmployee = data;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { 
+    this.selectedEmployee = data.selectedEmployee;
+    this.rating = data.rating;
   }
 
   ngOnInit(): void {
-    console.log(this.selectedEmployee);
+    if (this.rating < 0.25) {
+      this.moodMatIcon = 'sentiment_very_dissatisfied';
+    } else if (this.rating >= 0.25 && this.rating < 0.5) {
+      this.moodMatIcon = 'sentiment_dissatisfied';
+    } else if (this.rating >= 0.5 && this.rating < 0.75) {
+      this.moodMatIcon = 'sentiment_satisfied_alt';
+    } else {
+      this.moodMatIcon = 'sentiment_very_satisfied';
+    }
   }
 
 }

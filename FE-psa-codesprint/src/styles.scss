@@ -9,6 +9,16 @@ html, body {
      color: #FFFFFF;
  }
 
- 
-
  body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+ mat-table {
+     border-radius: 0.5rem;
+ }
+
+ .mat-select-value {
+     color:white;
+ }
+
+ .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #3d6b75;
+}
