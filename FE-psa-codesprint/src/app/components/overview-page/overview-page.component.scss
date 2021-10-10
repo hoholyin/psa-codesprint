@@ -1,5 +1,15 @@
 .overview_title {
     height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.overview_title_button {
+    display: flex;
+    align-items: center;
+    background-color: #3D6B75;
+    font-family: "Roboto", sans-serif;
+    color: #FFFFFF;
 }
 
 .overview_title_label {

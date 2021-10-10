@@ -11,6 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -37,7 +38,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     MatDialogModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatSortModule
+    MatSortModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
