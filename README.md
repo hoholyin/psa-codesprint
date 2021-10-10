@@ -1,6 +1,7 @@
 # Smart Sentiments PSA Codesprint 
 
 ### Link to Dashboard : https://hoholyin.github.io/psa-codesprint/
+_(As our server is hosted on a free platform, please note that the first initial load may take longer than usual ~30seconds)_
 
 ### Link to Github Repository: https://github.com/hoholyin/psa-codesprint/tree/master/BE
 
