@@ -60,7 +60,10 @@ def submitrating():
 @app.route("/getrating", methods=['GET'])
 def getrating():
     result = [json.loads(json.dumps(doc, default=json_util.default)) for doc in db.employeeScore.find({}, {"_id": 0, "name": 1, "rating": 1})]
-    return jsonify({'result': result}), 200
+
+    allEmployeeData = [json.loads(json.dumps(doc, default=json_util.default)) for doc in db.employeeData.find({})] #return everything
+
+    return jsonify({'result': result, 'allEmployeeData':allEmployeeData}), 200
 
 @app.route("/getallscore", methods=['GET'])
 def getallscore():
@@ -69,17 +72,15 @@ def getallscore():
 
 @app.route("/getscorebyname", methods=['GET'])
 def getscorebyname():
-    name = request.args.get('name')
-    employeeDataResult = db.employeeData.find_one({
-        'name': name
-    })
-    employeeScoreResult = db.employeeScore.find_one({
-        'name': name
-    })
-    if (not employeeDataResult or not employeeScoreResult):
-        return jsonify({"message": 'data not found'}), 500
-    else:
-        return jsonify({'employeeData': employeeDataResult, 'employeeScore': employeeScoreResult}), 200
+  name = request.args.get('name')
+  print(name)
+  employeeScoreResult = db.employeeScore.find_one({
+      'name': name
+  })
+  if (not employeeScoreResult):
+      return jsonify({"message": 'data not found'}), 500
+  else:
+      return jsonify({'employeeScore': employeeScoreResult['scores']}), 200
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080)
