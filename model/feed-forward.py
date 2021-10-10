@@ -59,12 +59,14 @@ class ScoreDataset(Dataset):
 class Model(nn.Module):
     def __init__(self):
         super().__init__()
-        hidden_dim = 100
+        hidden_dim = 128
         self.ffl_1 = nn.Linear(13, hidden_dim)
+        self.dropout = nn.Dropout(p=0.3)
         self.out = nn.Linear(hidden_dim, 5)
 
     def forward(self, x):
         v = self.ffl_1(x)
+        v = self.dropout(v)
         v = self.out(v)
         return v
 
@@ -77,11 +79,12 @@ y_train = sys.argv[3]
 device = 'cpu'
 
 if mode == "--train":
+    print("Beginning to train model...")
     dataset = ScoreDataset(x_train, y_train) 
     model = Model()
     learning_rate = 0.01
     batch_size = 4
-    num_epochs = 20
+    num_epochs = 30 # original is 20
     data_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
     criterion = torch.nn.CrossEntropyLoss()
@@ -119,6 +122,7 @@ if mode == "--train":
         'model': model
     }
     torch.save(checkpoint, 'model.pt')
+    print("Training complete")
     print("Model saved in model.pt")
         
 
@@ -141,7 +145,6 @@ if mode == "--test":
     for label in labels:
         prediction.write(str(label) + "\n")
     correct = 0
-    '''
     answers = open(y_train, "r")
     answers = [a for a in answers]
     if len(answers) != len(labels):
@@ -152,4 +155,3 @@ if mode == "--test":
         correct += mark
     acc = float(correct) / float(len(answers))
     print("Accuracy is ", acc)
-    '''
